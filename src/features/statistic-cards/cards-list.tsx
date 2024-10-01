@@ -1,57 +1,73 @@
 "use client";
 
+import {
+    useGetManagerPlan,
+    useGetStatistic,
+} from "@/entity/statistic-card/_queries";
 import { CardContainer } from "@/shared/components/cardContainer";
 import { ChartPie } from "lucide-react";
-import { useState } from "react";
 
 export const CardsList = () => {
-    const [cardsData, setCardsData] = useState([
-        {
-            value: 600,
-            proceeds: 600,
-            targetValue: 1000,
-            currency: "₽",
-        },
-        {
-            value: 4000,
-            proceeds: 4000,
-            targetValue: 5000,
-            currency: "₽",
-        },
-        {
-            value: 10000,
-            proceeds: 10000,
-            targetValue: 9000,
-            currency: "₽",
-        },
-    ]);
+    const {
+        data: statData,
+        isError: isStatError,
+        isLoading: isStatLoading,
+    } = useGetStatistic();
+    const {
+        data: planData,
+        isError: isPlanError,
+        isLoading: isPlanLoading,
+    } = useGetManagerPlan();
 
-    const handleEditTarget = (index: number, newTarget: number) => {
-        const newData = [...cardsData];
-        newData[index].targetValue = newTarget;
-        setCardsData(newData);
-    };
+    if (isStatLoading) return <div>Loading</div>;
+    if (isStatError) return <div>Error</div>;
 
     return (
-        <div className="max-w-[1300px] mx-auto mt-4">
-            <header className="w-full h-16 bg-gray-100 flex items-center justify-center mb-6">
-                <h1 className="flex text-xl font-bold uppercase">
-                    Dashboard <ChartPie className="inline ml-2" />
+        <div className="w-full space-y-6">
+            <header className="w-full h-[5dvh] sm:h-[60px] bg-white flex items-center justify-between p-5 rounded-xl overflow-hidden">
+                <h1 className="max-[450px]:text-[15px] max-[360px]:text-[12px] max-[300px]:text-[10px] text-[20px] sm:text-[30px] font-semibold uppercase text-nowrap space-x-1">
+                    <span className="max-[400px]:text-[15px]">WT10</span>
+                    <span className="text-gray-dark">
+                        application analytics
+                    </span>
                 </h1>
+                <ChartPie className="inline ml-2 text-gray-dark" size={24} />
             </header>
-            <div className="grid gap-4 grid-cols-3">
-                {cardsData.map((card, index) => (
-                    <CardContainer
-                        key={index}
-                        value={card.value}
-                        targetValue={card.targetValue}
-                        proceeds={card.proceeds}
-                        currency={card.currency}
-                        onEdit={(newTarget) =>
-                            handleEditTarget(index, newTarget)
-                        }
-                    />
-                ))}
+            <div className="flex flex-col sm:flex-row gap-4">
+                {statData && planData && (
+                    <>
+                        <CardContainer
+                            statistic={{
+                                count: statData.count_day,
+                                sum: statData.sum_day,
+                            }}
+                            plan={planData}
+                            planCurrent={planData.day_plan}
+                            title="за день"
+                            planType="day_plan"
+                        />
+                        <CardContainer
+                            statistic={{
+                                count: statData.count_week,
+                                sum: statData.sum_week,
+                            }}
+                            plan={planData}
+                            planCurrent={planData.week_plan}
+                            title="за неделю"
+                            planType="week_plan"
+                        />
+                        <CardContainer
+                            statistic={{
+                                count: statData.count_month,
+                                sum: statData.sum_month,
+                            }}
+                            plan={planData}
+                            planCurrent={planData.month_plan}
+                            title="за месяц"
+                            planType="month_plan"
+                        />
+                    </>
+                )}
             </div>
         </div>
     );

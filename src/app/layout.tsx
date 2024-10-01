@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { AppProvider } from "./_providers";
 import "./globals.css";
-import "@radix-ui/themes/styles.css";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -18,7 +17,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${font.className} min-h-[100dvh]`}>
+            <body className={`${font.className} min-h-[100dvh] bg-gray-light`}>
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>
