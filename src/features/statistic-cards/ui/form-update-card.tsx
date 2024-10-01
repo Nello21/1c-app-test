@@ -21,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Plan } from "@/entity/statistic-card/_domain/types";
+import { useState } from "react";
 
 interface FormUpdateCard {
     data: Plan;
@@ -39,10 +40,13 @@ export function FormUpdateCard({
         planCurrent,
     });
 
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <Dialog>
+        <Dialog open={isOpen}>
             <DialogTrigger asChild>
                 <SquarePen
+                    onClick={() => setIsOpen(true)}
                     className="ml-2 cursor-pointer text-gray-dark"
                     size={18}
                 />
@@ -91,6 +95,7 @@ export function FormUpdateCard({
                             )}
                         />
                         <Button
+                            onClick={() => setIsOpen(false)}
                             type="submit"
                             className="bg-blue-dark text-white"
                             loading={isLoading}
