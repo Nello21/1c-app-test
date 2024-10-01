@@ -34,7 +34,7 @@ export function FormUpdateCard({
     planType,
     planCurrent,
 }: FormUpdateCard) {
-    const { createManagerPlan, form, isLoading } = useFormCreateManagerPlan({
+    const { createManagerPlan, form } = useFormCreateManagerPlan({
         data,
         planType,
         planCurrent,
@@ -81,7 +81,6 @@ export function FormUpdateCard({
                                 <FormItem>
                                     <FormControl>
                                         <Input
-                                            disabled={isLoading}
                                             placeholder="Число заявок"
                                             {...field}
                                             className={cn("", {
@@ -98,7 +97,6 @@ export function FormUpdateCard({
                             onClick={() => setIsOpen(false)}
                             type="submit"
                             className="bg-blue-dark text-white"
-                            loading={isLoading}
                         >
                             Сохранить
                         </Button>
