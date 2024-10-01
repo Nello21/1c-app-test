@@ -8,7 +8,7 @@ export const ProgressBar = ({
     value: number;
     planValue: number;
 }) => {
-    const progressValue = Math.min((value / planValue) * 100, 100);
+    const progressValue = Math.min((value / planValue) * 100);
     const isOverflow = value >= planValue;
     const overflowValue = isOverflow ? ((value - planValue) / value) * 100 : 0;
 
@@ -28,7 +28,7 @@ export const ProgressBar = ({
             <div className="relative">
                 <Progress.Root
                     className="relative w-full bg-gray-light rounded-full h-2 overflow-hidden"
-                    value={progressValue}
+                    value={Math.min(progressValue, 100)}
                     style={{ width: "100%" }}
                 >
                     <Progress.Indicator
@@ -42,7 +42,7 @@ export const ProgressBar = ({
                 {isOverflow && (
                     <Progress.Root
                         className="absolute right-0 top-0 bg-red-500 h-full w-full rounded-full overflow-hidden"
-                        value={progressValue}
+                        value={Math.min(progressValue, 100)}
                     >
                         <Progress.Indicator
                             className=" bg-green-light h-full transition-transform"
