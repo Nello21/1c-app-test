@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Plan } from "@/entity/statistic-card/_domain/types";
 import { useState } from "react";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 interface FormUpdateCard {
     data: Plan;
@@ -40,13 +41,10 @@ export function FormUpdateCard({
         planCurrent,
     });
 
-    const [isOpen, setIsOpen] = useState(false);
-
     return (
-        <Dialog open={isOpen}>
+        <Dialog>
             <DialogTrigger asChild>
                 <SquarePen
-                    onClick={() => setIsOpen(true)}
                     className="ml-2 cursor-pointer text-gray-dark"
                     size={18}
                 />
@@ -93,13 +91,14 @@ export function FormUpdateCard({
                                 </FormItem>
                             )}
                         />
-                        <Button
-                            onClick={() => setIsOpen(false)}
-                            type="submit"
-                            className="bg-blue-dark text-white"
-                        >
-                            Сохранить
-                        </Button>
+                        <DialogClose asChild>
+                            <Button
+                                type="submit"
+                                className="bg-blue-dark text-white"
+                            >
+                                Сохранить
+                            </Button>
+                        </DialogClose>
                     </form>
                 </Form>
             </DialogContent>
