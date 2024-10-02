@@ -21,7 +21,12 @@ export const CardsList = () => {
     } = useGetManagerPlan();
 
     if (isStatLoading && isPlanLoading) return <Loader />;
-    if (isStatError && isPlanError) return <div>Error</div>;
+    if (isStatError && isPlanError)
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                Error
+            </div>
+        );
 
     return (
         <div className="w-full space-y-6">
