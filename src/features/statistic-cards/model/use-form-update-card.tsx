@@ -1,9 +1,9 @@
-import { postManagerPlan } from "@/entity/statistic-card/_actions/post-manager-plan";
-import { useInvalidateManagerPlan } from "@/entity/statistic-card/_queries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Plan } from "@/entity/statistic-card/_domain/types";
+import { useInvalidateManagerPlan } from "@/entity/statistic-card/statistic-card";
+import { postManagerPlan } from "@/entity/statistic-card/statistic-card.server";
 
 const createManagerPlanSchema = (planType: string) => {
     return z.object({

@@ -7,7 +7,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useFormCreateManagerPlan } from "../model/use-form-update-card";
 import { Button } from "@/components/ui/button";
 import { SquarePen } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -21,8 +20,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Plan } from "@/entity/statistic-card/_domain/types";
-import { useState } from "react";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useFormCreateManagerPlan } from "../model/use-form-update-card";
 
 interface FormUpdateCard {
     data: Plan;

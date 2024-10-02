@@ -3,8 +3,9 @@
 import {
     useGetManagerPlan,
     useGetStatistic,
-} from "@/entity/statistic-card/_queries";
+} from "@/entity/statistic-card/statistic-card";
 import { CardContainer } from "@/shared/components/cardContainer";
+import { Loader } from "@/shared/components/loader";
 import { ChartPie } from "lucide-react";
 
 export const CardsList = () => {
@@ -19,8 +20,8 @@ export const CardsList = () => {
         isLoading: isPlanLoading,
     } = useGetManagerPlan();
 
-    if (isStatLoading) return <div>Loading</div>;
-    if (isStatError) return <div>Error</div>;
+    if (isStatLoading && isPlanLoading) return <Loader />;
+    if (isStatError && isPlanError) return <div>Error</div>;
 
     return (
         <div className="w-full space-y-6">
